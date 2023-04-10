@@ -2,8 +2,30 @@ import Head from "next/head";
 import { useState } from "react";
 import styles from "./index.module.css";
 
+// chatGPT attempt at formatting text
+function formatRapText(text) {
+  const lines = text.trim().split("\n\n");
+  let formattedText = "";
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    formattedText += line;
+
+    if (i < lines.length - 1) {
+      formattedText += "<br>"; // Add a line break for each bar
+
+      if (line.endsWith(".") || line.endsWith("!") || line.endsWith("?")) {
+        formattedText += "<br>"; // Add an extra line break for each verse
+      }
+    }
+  }
+
+  return formattedText;
+}
+
 export default function Home() {
-  const [animalInput, setAnimalInput] = useState("");
+  const [userInput, setUserInput] = useState("");
+  const [inputRapper, setInputRapper] = useState("");
   const [result, setResult] = useState();
 
   async function onSubmit(event) {
@@ -14,17 +36,20 @@ export default function Home() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ animal: animalInput }),
+        body: JSON.stringify({ inputRapper, userInput }),
       });
 
       const data = await response.json();
       if (response.status !== 200) {
-        throw data.error || new Error(`Request failed with status ${response.status}`);
+        throw (
+          data.error ||
+          new Error(`Request failed with status ${response.status}`)
+        );
       }
 
-      setResult(data.result);
-      setAnimalInput("");
-    } catch(error) {
+      setResult(formatRapText(data.result));
+      setUserInput("");
+    } catch (error) {
       // Consider implementing your own error handling logic here
       console.error(error);
       alert(error.message);
@@ -34,24 +59,43 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>OpenAI Quickstart</title>
+        <title>RapGPT</title>
         <link rel="icon" href="/dog.png" />
       </Head>
 
       <main className={styles.main}>
-        <img src="/dog.png" className={styles.icon} />
-        <h3>Name my pet</h3>
+        <h1>RapGPT</h1>
         <form onSubmit={onSubmit}>
-          <input
+          <p className={styles.instruction}>Choose a rapper to mimic:</p>
+          <textarea
+            rows="1"
             type="text"
-            name="animal"
-            placeholder="Enter an animal"
-            value={animalInput}
-            onChange={(e) => setAnimalInput(e.target.value)}
+            name="rapper input"
+            value={inputRapper}
+            onChange={(e) => setInputRapper(e.target.value)}
           />
-          <input type="submit" value="Generate names" />
+          <p className={styles.instruction}>Tell me what to rap about:</p>
+          <textarea
+            rows="4"
+            type="text"
+            name="input"
+            placeholder="Living in New York City"
+            value={userInput}
+            onChange={(e) => setUserInput(e.target.value)}
+          />
+          <input type="submit" value="Submit" />
         </form>
-        <div className={styles.result}>{result}</div>
+        <br></br>
+
+        <h4 className="resultTitle">
+          Chosen Rapper: {inputRapper}
+          <br></br> Context: {userInput}
+        </h4>
+        <h2 className="resultTitle">Here is your rap:</h2>
+        <div
+          className={styles.result}
+          dangerouslySetInnerHTML={{ __html: result }}
+        ></div>
       </main>
     </div>
   );

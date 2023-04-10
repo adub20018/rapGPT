@@ -13,11 +13,12 @@
   font-weight: bold;
   font-style: normal;
 }
+
 .main,
-.main input {
+.main textarea {
   font-size: 16px;
   line-height: 24px;
-  color: #353740;
+  color: #f4f4f4;
   font-family: "ColfaxAI", Helvetica, sans-serif;
 }
 .main {
@@ -25,6 +26,8 @@
   flex-direction: column;
   align-items: center;
   padding-top: 60px;
+  background-color: #202123;
+  height: 100vw;
 }
 .main .icon {
   width: 34px;
@@ -39,14 +42,17 @@
 .main form {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   width: 320px;
 }
-.main input[type="text"] {
+.main textarea[type="text"] {
   padding: 12px 16px;
-  border: 1px solid #10a37f;
+  border: 1px solid #542cf2;
   border-radius: 4px;
   margin-bottom: 24px;
-  outline-color: #10a37f;
+  outline-color: #542cf2;
+  color: black;
+  width: 285px;
 }
 .main ::placeholder {
   color: #8e8ea0;
@@ -55,13 +61,29 @@
 .main input[type="submit"] {
   padding: 12px 0;
   color: #fff;
-  background-color: #10a37f;
+  background-color: #542cf2;
   border: none;
   border-radius: 4px;
   text-align: center;
   cursor: pointer;
+  width: 320px;
 }
-.main .result {
-  font-weight: bold;
-  margin-top: 40px;
+.result {
+  width: auto;
+  max-width: 700px;
+  border: 1px solid #542cf2;
+  padding: 20px;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.resultTitle {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.instruction {
+  margin-bottom: 0;
+}
+
+.featureText {
+  color: #542cf2;
 }
