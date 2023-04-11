@@ -1,4 +1,4 @@
-# OpenAI API Quickstart - Node.js example app
+# RapGPT
 
 This is a rap generator, powered by OpenAI's GPT-3 model. Setup details below.
 
