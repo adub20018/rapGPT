@@ -42,6 +42,7 @@ export default function Home() {
     setShowBackButton(false);
     // Clear the result
     setResult("");
+    formRemoved = false;
   }
 
   async function onSubmit(event) {
@@ -79,6 +80,10 @@ export default function Home() {
     setShowBackButton(true);
   }
 
+  // set variables to store user input
+  const chosenRapper = inputRapper;
+  const chosenInput = userInput;
+
   return (
     <div>
       <Head>
@@ -110,13 +115,15 @@ export default function Home() {
           <input type="submit" value="Submit" />
         </form>
         <br></br>
-        {formRemoved && (
+        {/* {formRemoved && (
           <h4 className="resultTitle">
             Chosen Rapper: {inputRapper}
             <br></br> Context: {userInput}
           </h4>
+        )} */}
+        {formRemoved && (
+          <h2 className="resultTitle">Here is your rap from {chosenRapper}</h2>
         )}
-        {formRemoved && <h2 className="resultTitle">Here is your rap:</h2>}
         {formRemoved && (
           <div
             id="results"
@@ -125,7 +132,11 @@ export default function Home() {
           ></div>
         )}
         {/* displays the back button */}
-        {showBackButton && <button onClick={onBackButtonClick}>Go Back</button>}
+        {showBackButton && (
+          <button id={styles.goBack} onClick={onBackButtonClick}>
+            Go Back
+          </button>
+        )}
       </main>
     </div>
   );
