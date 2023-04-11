@@ -7,6 +7,9 @@ function formatRapText(text) {
   const lines = text.trim().split("\n\n");
   let formattedText = "";
 
+  text = text.replace(". ", ".\n\n");
+  text = text.replace(":", ":\n\n");
+
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
     formattedText += line;
@@ -23,10 +26,23 @@ function formatRapText(text) {
   return formattedText;
 }
 
+// define formRemoved boolean for displaying results
+let formRemoved = false;
+
 export default function Home() {
   const [userInput, setUserInput] = useState("");
   const [inputRapper, setInputRapper] = useState("");
   const [result, setResult] = useState();
+  const [showBackButton, setShowBackButton] = useState(false);
+
+  function onBackButtonClick() {
+    // Show the form
+    document.getElementById("formID").style.display = "";
+    // Hide the back button
+    setShowBackButton(false);
+    // Clear the result
+    setResult("");
+  }
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -48,12 +64,19 @@ export default function Home() {
       }
 
       setResult(formatRapText(data.result));
+
+      const form = document.getElementById("formID");
+      // remove the display of the input form when results are displayed
+      form.style.display = "none";
+      formRemoved = true;
+
       setUserInput("");
     } catch (error) {
       // Consider implementing your own error handling logic here
       console.error(error);
       alert(error.message);
     }
+    setShowBackButton(true);
   }
 
   return (
@@ -64,9 +87,10 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1>RapGPT</h1>
-        <form onSubmit={onSubmit}>
+        <form id="formID" onSubmit={onSubmit}>
           <p className={styles.instruction}>Choose a rapper to mimic:</p>
           <textarea
+            className="textarea"
             rows="1"
             type="text"
             name="rapper input"
@@ -75,6 +99,7 @@ export default function Home() {
           />
           <p className={styles.instruction}>Tell me what to rap about:</p>
           <textarea
+            className="textarea"
             rows="4"
             type="text"
             name="input"
@@ -85,16 +110,22 @@ export default function Home() {
           <input type="submit" value="Submit" />
         </form>
         <br></br>
-
-        <h4 className="resultTitle">
-          Chosen Rapper: {inputRapper}
-          <br></br> Context: {userInput}
-        </h4>
-        <h2 className="resultTitle">Here is your rap:</h2>
-        <div
-          className={styles.result}
-          dangerouslySetInnerHTML={{ __html: result }}
-        ></div>
+        {formRemoved && (
+          <h4 className="resultTitle">
+            Chosen Rapper: {inputRapper}
+            <br></br> Context: {userInput}
+          </h4>
+        )}
+        {formRemoved && <h2 className="resultTitle">Here is your rap:</h2>}
+        {formRemoved && (
+          <div
+            id="results"
+            className={styles.result}
+            dangerouslySetInnerHTML={{ __html: result }}
+          ></div>
+        )}
+        {/* displays the back button */}
+        {showBackButton && <button onClick={onBackButtonClick}>Go Back</button>}
       </main>
     </div>
   );

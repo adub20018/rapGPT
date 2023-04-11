@@ -60,6 +60,6 @@ export default async function (req, res) {
 function generatePrompt(inputRapper, userInput) {
   const capitalizedUserInput =
     userInput[0].toUpperCase() + userInput.slice(1).toLowerCase();
-  return `you are rapGPT. you will create hip hop/rap rhymes based on the rapper ${inputRapper}. You should use your knowledge of hip hop rap to generate an entertaining rap based on, but not limited to, the user input, in order to generate creative rhymes, rather than repeating only the user input. Ensure that the text of each line is unique and not repeated more than two times. : 
+  return `you are rapGPT. you will create hip hop/rap rhymes based on the rapper ${inputRapper}. You should use your knowledge of hip hop rap to generate an entertaining rap based on, but not limited to, the user input, in order to generate creative rhymes, rather than repeating only the user input. Please ensure that each bar is unique and not using the same words as previous bars.: 
   ${capitalizedUserInput} \n\n rapGPT:`;
 }
