@@ -13,7 +13,7 @@ body {
 }
 
 button {
-	@apply px-2.5 py-3 font-medium text-lg bg-indigo-700 text-zinc-50 rounded-md mt-4 hover:bg-indigo-600 transition-all duration-200 ease-in-out;
+	@apply px-2.5 py-3 font-medium text-lg bg-indigo-700 text-zinc-50 rounded-md mt-4 hover:bg-indigo-550 transition-all duration-200 ease-in-out;
 }
 
 label {
