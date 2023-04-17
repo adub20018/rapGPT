@@ -42,4 +42,6 @@ This is a rap generator, powered by OpenAI's GPT-3 model. Setup details below.
    $ npm run dev
    ```
 
-You should now be able to access the app at [http://localhost:5173](http://localhost:5173)
+You should now be able to access the app at [http://localhost:3000](http://localhost:3000)
+
+This app was built upon the OpenAI API [quickstart tutorial](https://platform.openai.com/docs/quickstart). It uses the [Next.js](https://nextjs.org/) framework with [React](https://reactjs.org/).
