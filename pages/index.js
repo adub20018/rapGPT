@@ -27,13 +27,15 @@ function formatRapText(text) {
 }
 
 // define formRemoved boolean for displaying results
-let formRemoved = false;
+// let formRemoved = false;
 
 export default function Home() {
   const [userInput, setUserInput] = useState("");
   const [inputRapper, setInputRapper] = useState("");
   const [result, setResult] = useState();
   const [showBackButton, setShowBackButton] = useState(false);
+  const [formRemoved, setFormRemoved] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   function onBackButtonClick() {
     // Show the form
@@ -42,10 +44,15 @@ export default function Home() {
     setShowBackButton(false);
     // Clear the result
     setResult("");
+    setFormRemoved(false);
   }
 
   async function onSubmit(event) {
+    document.getElementById("formID").style.display = "none";
+    setFormRemoved(true);
+    setIsLoading(true);
     event.preventDefault();
+
     try {
       const response = await fetch("/api/generate", {
         method: "POST",
@@ -64,20 +71,26 @@ export default function Home() {
       }
 
       setResult(formatRapText(data.result));
+      setIsLoading(false);
 
       const form = document.getElementById("formID");
       // remove the display of the input form when results are displayed
       form.style.display = "none";
-      formRemoved = true;
+      setFormRemoved(true);
 
       setUserInput("");
     } catch (error) {
       // Consider implementing your own error handling logic here
       console.error(error);
       alert(error.message);
+      setIsLoading(false);
     }
     setShowBackButton(true);
   }
+
+  // set variables to store user input
+  const chosenRapper = inputRapper;
+  const chosenInput = userInput;
 
   return (
     <div>
@@ -109,23 +122,27 @@ export default function Home() {
           />
           <input type="submit" value="Submit" />
         </form>
-        <br></br>
+
         {formRemoved && (
-          <h4 className="resultTitle">
-            Chosen Rapper: {inputRapper}
-            <br></br> Context: {userInput}
-          </h4>
+          <h2 className="resultTitle">
+            {!showBackButton ? "Generating" : "Here"} is your rap from{" "}
+            {chosenRapper}
+          </h2>
         )}
-        {formRemoved && <h2 className="resultTitle">Here is your rap:</h2>}
-        {formRemoved && (
+        {formRemoved && isLoading && <p>This may take up to a minute...</p>}
+        {formRemoved && isLoading && <div className={styles.loader}></div>}
+        {formRemoved && !isLoading && (
           <div
-            id="results"
             className={styles.result}
             dangerouslySetInnerHTML={{ __html: result }}
           ></div>
         )}
         {/* displays the back button */}
-        {showBackButton && <button onClick={onBackButtonClick}>Go Back</button>}
+        {showBackButton && (
+          <button id={styles.goBack} onClick={onBackButtonClick}>
+            Go Back
+          </button>
+        )}
       </main>
     </div>
   );
