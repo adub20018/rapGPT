@@ -1,6 +1,6 @@
 # RapGPT
 
-This is a rap generator, powered by OpenAI's GPT-3 model. Setup details below.
+This is a rap generator, powered by OpenAI's GPT-3 model & Next.js. Setup details below.
 
 ## Setup
 
@@ -42,4 +42,4 @@ This is a rap generator, powered by OpenAI's GPT-3 model. Setup details below.
    $ npm run dev
    ```
 
-You should now be able to access the app at [http://localhost:5173](http://localhost:5173)
+You should now be able to access the app at [http://localhost:3000](http://localhost:3000)
