@@ -5,7 +5,6 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-// checks whether API key is set
 export default async function (req, res) {
   if (!configuration.apiKey) {
     res.status(500).json({
@@ -19,26 +18,25 @@ export default async function (req, res) {
 
   const { inputRapper } = req.body;
   const userInput = req.body.userInput || "";
+
   if (userInput.trim().length === 0) {
     res.status(400).json({
       error: {
-        message: "Oops, you did not enter anything",
+        message: "Oops, you didn't enter anything",
       },
     });
     return;
   }
 
-  // sets the options for the API
   try {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: generatePrompt(inputRapper, userInput),
-      temperature: 0.5,
+      temperature: 0.6,
       max_tokens: 300,
     });
     res.status(200).json({ result: completion.data.choices[0].text });
   } catch (error) {
-    // error handling
     // Consider adjusting the error handling logic for your use case
     if (error.response) {
       console.error(error.response.status, error.response.data);
@@ -58,5 +56,5 @@ function generatePrompt(inputRapper, userInput) {
   const capitalizedUserInput =
     userInput[0].toUpperCase() + userInput.slice(1).toLowerCase();
   return `you are rapGPT. you will create hip hop/rap rhymes based on the rapper ${inputRapper}. You should use your knowledge of hip hop rap to generate an entertaining rap based on, but not limited to, the user input, in order to generate creative rhymes, rather than repeating only the user input. Please ensure that each bar is unique and not using the same words as previous bars.: 
-  ${capitalizedUserInput} \n\n rapGPT:`;
+    ${capitalizedUserInput} \n\n rapGPT:`;
 }

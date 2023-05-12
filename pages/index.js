@@ -2,33 +2,6 @@ import Head from "next/head";
 import { useState } from "react";
 import styles from "./index.module.css";
 
-// chatGPT attempt at formatting text
-function formatRapText(text) {
-  const lines = text.trim().split("\n\n");
-  let formattedText = "";
-
-  text = text.replace(". ", ".\n\n");
-  text = text.replace(":", ":\n\n");
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
-    formattedText += line;
-
-    if (i < lines.length - 1) {
-      formattedText += "<br>"; // Add a line break for each bar
-
-      if (line.endsWith(".") || line.endsWith("!") || line.endsWith("?")) {
-        formattedText += "<br>"; // Add an extra line break for each verse
-      }
-    }
-  }
-
-  return formattedText;
-}
-
-// define formRemoved boolean for displaying results
-// let formRemoved = false;
-
 export default function Home() {
   const [userInput, setUserInput] = useState("");
   const [inputRapper, setInputRapper] = useState("");
@@ -70,15 +43,14 @@ export default function Home() {
         );
       }
 
-      setResult(formatRapText(data.result));
+      setResult(data.result);
       setIsLoading(false);
+      setUserInput("");
 
       const form = document.getElementById("formID");
       // remove the display of the input form when results are displayed
       form.style.display = "none";
       setFormRemoved(true);
-
-      setUserInput("");
     } catch (error) {
       // Consider implementing your own error handling logic here
       console.error(error);
@@ -87,10 +59,6 @@ export default function Home() {
     }
     setShowBackButton(true);
   }
-
-  // set variables to store user input
-  const chosenRapper = inputRapper;
-  const chosenInput = userInput;
 
   return (
     <div>
@@ -126,7 +94,7 @@ export default function Home() {
         {formRemoved && (
           <h2 className="resultTitle">
             {!showBackButton ? "Generating" : "Here"} is your rap from{" "}
-            {chosenRapper}
+            {inputRapper}
           </h2>
         )}
         {formRemoved && isLoading && <p>This may take up to a minute...</p>}
