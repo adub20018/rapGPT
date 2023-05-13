@@ -34,6 +34,7 @@ export default async function (req, res) {
       prompt: generatePrompt(inputRapper, userInput),
       temperature: 0.6,
       max_tokens: 100,
+      frequency_penalty: 0.6,
     });
     res.status(200).json({ result: completion.data.choices[0].text });
   } catch (error) {
@@ -55,6 +56,6 @@ export default async function (req, res) {
 function generatePrompt(inputRapper, userInput) {
   const capitalizedUserInput =
     userInput[0].toUpperCase() + userInput.slice(1).toLowerCase();
-  return `you are rapGPT. you will create hip hop/rap rhymes based on the rapper ${inputRapper}. You should use your knowledge of hip hop rap to generate an entertaining rap based on, but not limited to, the user input, in order to generate creative rhymes, rather than repeating only the user input. Please ensure that each bar is unique and not using the same words as previous bars.: 
-    ${capitalizedUserInput} \n\n rapGPT:`;
+  return `Rap as ${inputRapper}, drawing from your extensive knowledge of hip hop, try to incorporate smart hard hitting rhymes. After each bar, write @@@. Incorporate the user input: "${capitalizedUserInput}". 
+  RapGPT:`;
 }

@@ -43,7 +43,10 @@ export default function Home() {
         );
       }
 
-      setResult(data.result);
+      // manipulate the text into paragraphs for readability
+      const formattedResult = data.result.replace(/@@@/g, "<br>");
+
+      setResult(formattedResult);
       setIsLoading(false);
       setUserInput("");
 
@@ -93,7 +96,7 @@ export default function Home() {
 
         {formRemoved && (
           <h2 className="resultTitle">
-            {!showBackButton ? "Generating" : "Here"} is your rap from{" "}
+            {!showBackButton ? "Generating" : "Here is "} your rap from{" "}
             {inputRapper}
           </h2>
         )}
