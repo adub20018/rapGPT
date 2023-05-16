@@ -95,12 +95,12 @@ export default function Home() {
         </form>
 
         {formRemoved && (
-          <h2 className="resultTitle">
+          <h2>
             {!showBackButton ? "Generating" : "Here is "} your rap from{" "}
             {inputRapper}
           </h2>
         )}
-        {formRemoved && isLoading && <p>This may take up to a minute...</p>}
+        {formRemoved && isLoading && <h4>This may take up to a minute...</h4>}
         {formRemoved && isLoading && <div className={styles.loader}></div>}
         {formRemoved && !isLoading && (
           <div

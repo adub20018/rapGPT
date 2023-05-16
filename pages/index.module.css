@@ -34,14 +34,15 @@
   font-size: 45px;
   line-height: 45px;
   font-weight: bold;
-  margin-top: 4rem;
+  margin-top: 3rem;
+  margin-bottom: 4rem;
 }
 .main form {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 320px;
-  margin-top: 4rem;
+  margin-top: 2rem;
   background-color: #292145;
   padding: 4rem 2rem 4rem 2rem;
 
@@ -71,9 +72,15 @@
   width: 320px;
   margin-top: 8px;
 }
+.resultTitle {
+  margin-top: 2.5rem;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
 .result {
   width: auto;
-  max-width: 650px;
+  max-width: 420px;
   border: 1px solid #542cf2;
   padding: 20px;
   border-radius: 4px;
@@ -81,10 +88,7 @@
   margin-top: 2rem;
   background-color: #55438f73;
 }
-.resultTitle {
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
+
 .instruction {
   margin: 0;
 }
@@ -93,25 +97,31 @@
   color: #542cf2;
 }
 
+.main h4 {
+  margin-top: 2.5rem;
+  font-weight: 400;
+  color: #d3caf3;
+}
+
+.loader {
+  margin-top: 4rem;
+  border: 6px solid #f3f3f3; /* Light grey */
+  border-top: 6px solid #542cf2; /* Blue */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+}
+
 #goBack {
   height: 3rem;
   width: 8rem;
   background-color: #542cf2;
   border-radius: 4px;
   border: none;
-  margin-top: 4rem;
+  margin-top: 3rem;
   cursor: pointer;
   color: #f4f4f4;
-}
-
-.loader {
-  margin-top: 5rem;
-  border: 6px solid #f3f3f3; /* Light grey */
-  border-top: 6px solid #3498db; /* Blue */
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  animation: spin 2s linear infinite;
 }
 
 @keyframes spin {
